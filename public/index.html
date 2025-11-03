@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Keynote</title>
+    <meta name="viewport" content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- Your custom fonts/styles -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body id="body" bgcolor="black">
+    <div id="stageArea">
+      <div id="stage" class="stage"></div>
+      <div id="hyperlinkPlane" class="stage"></div>
+    </div>
+
+    <div id="slideshowNavigator"></div>
+    <div id="slideNumberControl"></div>
+    <div id="slideNumberDisplay"></div>
+    <div id="helpPlacard"></div>
+
+    <div id="waitingIndicator">
+      <div id="waitingSpinner"></div>
+    </div>
+
+    <!-- Keynote player runtime -->
+    <script src="assets/player/main.js"></script>
+
+    <!-- Disable keyboard navigation (arrows/space/page), leave buttons clickable -->
+    <script>
+      (function () {
+        function disableKeyboardNavigation() {
+          document.addEventListener(
+            "keydown",
+            function (e) {
+              const blocked = [
+                "ArrowRight",
+                "ArrowLeft",
+                "ArrowUp",
+                "ArrowDown",
+                " ",
+                "PageUp",
+                "PageDown",
+              ];
+              if (blocked.includes(e.key)) {
+                e.stopImmediatePropagation(); // stop Keynote handlers
+                e.preventDefault();
+                // console.log(`Blocked key: ${e.key}`);
+              }
+            },
+            true // capture phase to beat Keynote listeners
+          );
+        }
+
+        // Run after the page loads so Keynote is in place
+        window.addEventListener("load", disableKeyboardNavigation);
+      })();
+    </script>
+  </body>
+</html>
